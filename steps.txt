@@ -1,0 +1,69 @@
+(1)ENVIRONMENT SETUP
+
+>pip install virtualenv
+>virtualenv venv-flask
+>source venv-flask/bin/activate
+OnWindows>venv-flask\Scripts\activate
+
+>pip install Flask
+>pip install -r requirement-venv.txt
+
+(2)MICROFRAMEWORK SETUP
+
+    (2.1)
+    create directory/folder application to manage Application Level Utility
+    >mkdir application
+    inside application directory
+
+        (2.1.1)
+        create __init__.py,routes.py files
+
+            __init.py
+                from flask import Flask
+
+                #Creating server object
+                appServer = Flask(__name__)
+
+                #importing routes for webapp
+                from application import routes
+
+            routes.py
+                from application import appServer
+                from flask import render_template
+
+                @appServer.route('/hi')
+                def hey():
+                    return 'hi client'
+
+                @appServer.route('/')
+                def homepage():
+                    return render_template('index.html')
+
+        (2.1.2)
+        create static, templates directories inside application
+        >mkdir static
+        for accessing static files content to webapp
+
+        >mkdir templates
+        for managing frontend html etc : example index.html
+
+        
+    (2.2)
+    create directory/folder modules to manage Modular Level Functionality
+    >mkdir modules
+    keep all python files modules required
+
+
+    (2.3)
+    create File to Run Server say (webapp.py) : development
+
+        webapp.py
+            from application import appServer
+
+            if __name__=='__main__':
+                appServer.run(debug=True,port=5000)
+            
+    >python webapp.py
+    RUN development server
+
+(3)FLASK DOCUMENTATION : https://flask.palletsprojects.com/en/1.1.x/
